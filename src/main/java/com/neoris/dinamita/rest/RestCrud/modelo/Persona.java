@@ -5,21 +5,31 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 //@NoArgsConstructor
-@ToString
+//@ToString
 public class Persona {
 
-    private int id = 0;
-    private static int contadorPersona;
+    private String id;
+    private static int contadorPersona = 0;
     private String nombre;
     private String apellido;
     private int edad;
     private String email;
 
     public Persona(){
-        this.id += contadorPersona;
+        this.id = UUID.randomUUID().toString().replaceAll("-", "");
     }
 
+    @Override
+    public String toString() {
+        return id +
+                "," + nombre +
+                "," + apellido +
+                "," + edad +
+                "," + email;
+    }
 }

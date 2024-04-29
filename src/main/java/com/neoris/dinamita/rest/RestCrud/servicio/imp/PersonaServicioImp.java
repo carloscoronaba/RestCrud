@@ -10,11 +10,17 @@ import java.util.List;
 @Service
 public class PersonaServicioImp implements IPersonaServicio {
 
-    private List<Persona> listaPersonas;
+    private List<Persona> listaPersonas = new ArrayList<>();;
+
+    Persona persona = new Persona();
+    Persona persona2 = new Persona();
+    Persona persona3 = new Persona();
+    Persona persona4 = new Persona();
 
     @Override
     public List<Persona> listarPersonas() {
-        return List.of();
+
+        return listaPersonas;
     }
 
     @Override
@@ -42,6 +48,23 @@ public class PersonaServicioImp implements IPersonaServicio {
 
     @Override
     public Persona buscarPersona(String email) {
+
+        try{
+            for (Persona persona : listaPersonas){
+                if (persona.getEmail().equals(email)){
+                    return persona;
+                }
+                else {
+                    System.out.println("No existe persona con ese email");
+                    return null;
+                }
+            }
+
+        }catch (Exception ex){
+            System.out.println("Error al buscar persona: " + ex.getMessage());
+
+        }
         return null;
     }
+
 }
