@@ -4,13 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/holamundo")
 public class HolaMundo {
 
     @GetMapping("/saludo")
-    public void saludar(@RequestParam String saludo) {
-        System.out.println("Hola " + saludo);
+    public String saludar(@RequestParam String saludo) {
+        System.out.println("Hola " + saludo + ", desde Consola");
+        return "Hola " + saludo;
     }
 }
