@@ -14,7 +14,6 @@ import java.util.UUID;
 public class Persona {
 
     private String id;
-    private static int contadorPersona = 0;
     private String nombre;
     private String apellido;
     private int edad;
