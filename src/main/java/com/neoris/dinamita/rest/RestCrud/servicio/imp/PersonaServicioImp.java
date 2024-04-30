@@ -19,16 +19,21 @@ public class PersonaServicioImp implements IPersonaServicio {
 
     @Override
     public boolean insertarPersona(Persona persona) {
-
-        try{
+        for (Persona p : listaPersonas) {
+            if (p.getEmail().equals(persona.getEmail())) {
+                System.out.println("El correo electrónico ya existe.");
+                return false;
+            }
+        }
+        try {
             listaPersonas.add(persona);
             return true;
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("No se ha podido insertar la Persona: " + ex.getMessage());
             return false;
         }
-
     }
+
 
     @Override
     public boolean eliminarPersona(String email) {

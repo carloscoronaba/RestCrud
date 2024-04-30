@@ -18,9 +18,12 @@ public class PersonaController {
     public String insertarPersona(@RequestBody Persona persona){
 
         try{
-            servicio.insertarPersona(persona);
             System.out.println(persona);
-            return "Persona Ingresada con exito: " + persona;
+            if(servicio.insertarPersona(persona)){
+                return "Persona Ingresada con exito: " + persona;
+            }else{
+                return "Correo electronico ya existe: " + persona.getEmail();
+            }
 
         }catch (Exception ex){
             System.out.println("No se ha podido insertar la Persona: " + ex.getMessage());
