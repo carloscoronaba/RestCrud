@@ -12,7 +12,7 @@ public interface IPersonaServicio {
 
     public boolean eliminarPersona(String email);
 
-    public boolean modificarPersona(String email);
+    public boolean modificarPersona(String email, Persona persona);
 
     public Persona buscarPersona(String email);
 

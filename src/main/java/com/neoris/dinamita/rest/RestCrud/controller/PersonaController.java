@@ -44,4 +44,24 @@ public class PersonaController {
 
     }
 
+    @DeleteMapping("/eliminarPersona/{email}")
+    public String eliminarPersona(@PathVariable String email){
+        boolean eliminado = servicio.eliminarPersona(email);
+        if(eliminado){
+            return "Persona eliminada con exito";
+        }else{
+            return "Error al eliminar persona";
+        }
+    }
+
+    @PutMapping("/modificarPersona")
+    public String modificarPersona(@RequestParam String email, @RequestBody Persona persona){
+        boolean editado = servicio.modificarPersona(email, persona);
+        if(editado){
+            return "Persona modificada con exito";
+        }else{
+            return "Hubo un error al editar";
+        }
+
+    }
 }
