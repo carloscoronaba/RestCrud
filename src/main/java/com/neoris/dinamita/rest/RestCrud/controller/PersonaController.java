@@ -21,11 +21,12 @@ public class PersonaController {
         try {
             System.out.println(persona);
             if (servicio.insertarPersona(persona)) {
-                return ResponseEntity.status(HttpStatus.OK).body("Persona Ingresada con exito: " + persona);
+                return ResponseEntity.status(HttpStatus.CREATED).body("Persona Ingresada con exito: " + persona);
             } else {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Correo electronico ya existe: " + persona.getEmail());
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             System.out.println("No se ha podido insertar la Persona: " + ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
@@ -34,18 +35,14 @@ public class PersonaController {
 
 
     @GetMapping("/listaPersonas")
-    public ResponseEntity<List<Persona>>listarPersonas(){
+    public ResponseEntity<Object>listarPersonas(){
         try{
             List<Persona> personas = servicio.listarPersonas();
-
             // Retorna la lista de personas con un estado HTTP 200 OK
-            return new ResponseEntity<>(personas, HttpStatus.OK);
+            return ResponseEntity.ok().body(personas);
         }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().body(null);
         }
-
-
-
     }
 
     @GetMapping("/buscarPersona")
@@ -58,8 +55,8 @@ public class PersonaController {
         }
     }
 
-    @DeleteMapping("/eliminarPersona/{email}")
-    public ResponseEntity<String> eliminarPersona(@PathVariable String email) {
+    @DeleteMapping("/eliminarPersona")
+    public ResponseEntity<String> eliminarPersona(@RequestParam String email) {
         boolean eliminado = servicio.eliminarPersona(email);
         if (eliminado) {
             return ResponseEntity.status(HttpStatus.OK).body("Persona eliminada con éxito");
@@ -76,10 +73,5 @@ public class PersonaController {
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al editar persona");
         }
-
-
-
     }
-
-
 }

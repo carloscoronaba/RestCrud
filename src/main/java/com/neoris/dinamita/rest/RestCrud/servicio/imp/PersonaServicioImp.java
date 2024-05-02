@@ -73,18 +73,18 @@ public class PersonaServicioImp implements IPersonaServicio {
 
     @Override
     public Persona buscarPersona(String email) {
-        try{
-            for (Persona persona : listaPersonas){
-                if (persona.getEmail().equals(email)){
+        Persona p = new Persona();
+        try {
+            for (Persona persona : listaPersonas) {
+                if (persona.getEmail().equals(email)) {
                     return persona;
                 }
             }
             System.out.println("No existe persona con ese email");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println("Error al buscar persona: " + ex.getMessage());
-
         }
-        return null;
+        return p;
     }
 
 }
