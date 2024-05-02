@@ -17,10 +17,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Pruebas de integración para el controlador de Persona
+// Spring test
 @SpringBootTest
 @WebAppConfiguration
-class PersonaControllerTestIntegracion {
+class PersonaControllerTest {
+
     // URL base para las solicitudes CRUD
     private final static String BASE_URL = "/crud/";
 
@@ -32,14 +33,14 @@ class PersonaControllerTestIntegracion {
     private WebApplicationContext webApplicationContext;
 
     // Configuración antes de cada prueba
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    // Prueba para insertar una Persona
     @Test
-    public void testInsertarPersona() throws Exception {
+    void insertarPersona() throws Exception {
         // Construir una Persona para la prueba
         Persona persona = buildPersona();
 
@@ -57,9 +58,8 @@ class PersonaControllerTestIntegracion {
         assertEquals(201, result.getResponse().getStatus());
     }
 
-    // Prueba para listar todas las Personas
     @Test
-    public void testListarPersonas() throws Exception {
+    void listarPersonas() throws Exception {
         // Realizar la solicitud GET para listar a las Personas
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "listaPersonas")
                         // Especifica que la solicitud acepta JSON como tipo de contenido.
@@ -72,9 +72,8 @@ class PersonaControllerTestIntegracion {
         assertEquals(200, result.getResponse().getStatus());
     }
 
-    // Prueba para buscar una Persona por su correo electrónico
     @Test
-    public void testBuscarPersona() throws Exception {
+    void buscarPersona() throws Exception {
         // Correo electrónico para la prueba
         String email = "carlos@neoris.com";
 
@@ -89,9 +88,21 @@ class PersonaControllerTestIntegracion {
         assertEquals(200, result.getResponse().getStatus());
     }
 
-    // Prueba para modificar una Persona
     @Test
-    public void testModificarPersona() throws Exception {
+    void eliminarPersonaI() throws Exception {
+        // correo electrónico para la prueba
+        String email = "carlos@neoris.com";
+
+        // Realizar la solicitud DELETE para eliminar la Persona
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "eliminarPersona")
+                        .param("email", email))
+                .andReturn();
+        // Verificar que la respuesta sea exitosa (código 200)
+        assertEquals(200, result.getResponse().getStatus());
+    }
+
+    @Test
+    void modificarPersonaInexistente() throws Exception {
         Persona persona = buildPersona();
         String email = "carlos@neoris.com";
 
@@ -104,20 +115,7 @@ class PersonaControllerTestIntegracion {
                 .andReturn();
 
         // Verificar que la respuesta sea exitosa (código 200)
-        assertEquals(200, result.getResponse().getStatus());
-    }
-
-    @Test
-    public void testEliminarPersonaInexistente() throws Exception {
-        // correo electrónico para la prueba
-        String email = "carlos@neoris.com";
-
-        // Realizar la solicitud DELETE para eliminar la Persona
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "eliminarPersona")
-                        .param("email", email))
-                .andReturn();
-        // Verificar que la respuesta sea exitosa (código 200)
-        assertEquals(200, result.getResponse().getStatus());
+        assertEquals(404, result.getResponse().getStatus());
     }
 
     // Método para convertir un objeto a formato JSON
