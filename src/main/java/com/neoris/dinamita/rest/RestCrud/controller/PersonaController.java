@@ -38,8 +38,11 @@ public class PersonaController {
     public ResponseEntity<Object>listarPersonas(){
         try{
             List<Persona> personas = servicio.listarPersonas();
-            // Retorna la lista de personas con un estado HTTP 200 OK
-            return ResponseEntity.ok().body(personas);
+            if(personas.isEmpty()){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La lista esta vacia");
+            }else{
+                return ResponseEntity.ok().body(personas);
+            }
         }catch (Exception e){
             return ResponseEntity.internalServerError().body(null);
         }
