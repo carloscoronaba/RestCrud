@@ -1,27 +1,31 @@
 package com.neoris.dinamita.rest.RestCrud.modelo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
 
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
-//@ToString
+@NoArgsConstructor
+@Entity
 public class Persona {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String nombre;
     private String apellido;
     private int edad;
     private String email;
 
-    public Persona(){
+    /*public Persona(){
         this.id = UUID.randomUUID().toString().replaceAll("-", "");
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -31,4 +35,5 @@ public class Persona {
                 "," + edad +
                 "," + email;
     }
+
 }
