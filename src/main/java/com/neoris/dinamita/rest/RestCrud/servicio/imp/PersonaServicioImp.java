@@ -17,19 +17,18 @@ public class PersonaServicioImp implements IPersonaServicio {
 
     @Override
     public List<Persona> listarPersonas() {
-        return List.of();
+        List<Persona> lista = personaRepositorio.findAll();
+        return lista;
     }
 
     @Override
     public boolean insertarPersona(Persona persona) {
-
         try {
             personaRepositorio.save(persona);
             return true;
         }catch (Exception ex){
             return false;
         }
-
     }
 
     @Override
