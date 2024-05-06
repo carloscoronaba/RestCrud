@@ -1,5 +1,6 @@
 package com.neoris.dinamita.rest.RestCrud.servicio.imp;
 
+import com.neoris.dinamita.rest.RestCrud.controller.PersonaController;
 import com.neoris.dinamita.rest.RestCrud.modelo.Persona;
 import com.neoris.dinamita.rest.RestCrud.repositorio.PersonaRepositorio;
 import com.neoris.dinamita.rest.RestCrud.servicio.IPersonaServicio;
@@ -33,16 +34,35 @@ public class PersonaServicioImp implements IPersonaServicio {
 
     @Override
     public boolean eliminarPersona(String email) {
-        return false;
+
+        try{
+            Persona persona = personaRepositorio.findPersonaByEmail(email);
+            personaRepositorio.delete(persona);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
+
     }
 
     @Override
-    public boolean modificarPersona(String email, Persona persona) {
-        return false;
+    public boolean modificarPersona(String email, Persona personaNueva) {
+        try{
+            Persona personaEditar = personaRepositorio.findPersonaByEmail(email);
+            personaEditar.setNombre(personaNueva.getNombre());
+            personaEditar.setApellido(personaNueva.getApellido());
+            personaEditar.setEdad(personaNueva.getEdad());
+            personaEditar.setEmail(personaNueva.getEmail());
+            personaRepositorio.save(personaEditar);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
     }
 
     @Override
     public Persona buscarPersona(String email) {
-        return null;
+        Persona persona = personaRepositorio.findPersonaByEmail(email);
+        return persona;
     }
 }
