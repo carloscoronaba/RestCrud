@@ -1,9 +1,6 @@
 package com.neoris.dinamita.rest.RestCrud.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -12,6 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name= "personas")
 public class Persona {
 
     @Id

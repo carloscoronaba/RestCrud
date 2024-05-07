@@ -64,7 +64,7 @@ public class PersonaServicioImp implements IPersonaServicio {
     public boolean modificarPersona(String email, Persona personaNueva) {
         try{
             if(email != "" && personaNueva !=null){
-                Persona personaEditar = personaRepositorio.findPersonaByEmail(email);
+                Persona personaEditar = buscarPersona(email);
                 personaEditar.setNombre(personaNueva.getNombre());
                 personaEditar.setApellido(personaNueva.getApellido());
                 personaEditar.setEdad(personaNueva.getEdad());
