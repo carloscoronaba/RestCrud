@@ -1,10 +1,10 @@
-package com.neoris.dinamita.rest.RestCrud.servicio;
+package com.neoris.dinamita.rest.RestCrud.service;
 
-import com.neoris.dinamita.rest.RestCrud.modelo.Persona;
+import com.neoris.dinamita.rest.RestCrud.model.Persona;
 
 import java.util.List;
 
-public interface IPersonaServicio {
+public interface IPersonaService {
 
     public List<Persona> listarPersonas();
 

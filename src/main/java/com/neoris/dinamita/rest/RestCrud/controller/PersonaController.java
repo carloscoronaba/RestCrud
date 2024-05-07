@@ -1,7 +1,7 @@
 package com.neoris.dinamita.rest.RestCrud.controller;
 
-import com.neoris.dinamita.rest.RestCrud.modelo.Persona;
-import com.neoris.dinamita.rest.RestCrud.servicio.IPersonaServicio;
+import com.neoris.dinamita.rest.RestCrud.model.Persona;
+import com.neoris.dinamita.rest.RestCrud.service.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class PersonaController {
 
     @Autowired
-    IPersonaServicio servicio;
+    IPersonaService servicio;
 
     @PostMapping("/insertar")
     public ResponseEntity<String> insertarPersona(@RequestBody Persona persona){

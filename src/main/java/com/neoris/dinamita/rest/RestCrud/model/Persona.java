@@ -1,9 +1,7 @@
-package com.neoris.dinamita.rest.RestCrud.modelo;
+package com.neoris.dinamita.rest.RestCrud.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor

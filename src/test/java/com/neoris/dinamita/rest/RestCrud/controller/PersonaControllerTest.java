@@ -2,7 +2,7 @@ package com.neoris.dinamita.rest.RestCrud.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.neoris.dinamita.rest.RestCrud.modelo.Persona;
+import com.neoris.dinamita.rest.RestCrud.model.Persona;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

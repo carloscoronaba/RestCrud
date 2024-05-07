@@ -1,20 +1,18 @@
-package com.neoris.dinamita.rest.RestCrud.servicio.imp;
+package com.neoris.dinamita.rest.RestCrud.service.imp;
 
-import com.neoris.dinamita.rest.RestCrud.controller.PersonaController;
-import com.neoris.dinamita.rest.RestCrud.modelo.Persona;
-import com.neoris.dinamita.rest.RestCrud.repositorio.PersonaRepositorio;
-import com.neoris.dinamita.rest.RestCrud.servicio.IPersonaServicio;
+import com.neoris.dinamita.rest.RestCrud.model.Persona;
+import com.neoris.dinamita.rest.RestCrud.repository.PersonaRepository;
+import com.neoris.dinamita.rest.RestCrud.service.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PersonaServicioImp implements IPersonaServicio {
+public class PersonaServiceImp implements IPersonaService {
 
     @Autowired
-    private PersonaRepositorio personaRepositorio;
+    private PersonaRepository personaRepositorio;
 
     @Override
     public List<Persona> listarPersonas() {
