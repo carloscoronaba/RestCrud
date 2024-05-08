@@ -9,6 +9,4 @@ public interface PersonaRepository extends JpaRepository<Persona, String> {
 
     Persona findPersonaByEmail(String email);
 
-
-
 }
