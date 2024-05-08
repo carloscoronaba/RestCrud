@@ -16,7 +16,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
     VideoJuegoRepository videoJuegoRepository;
 
     @Override
-    public List<VideoJuego> listarVideoJuego() {
+    public List<VideoJuego> listarVideoJuegos() {
         List<VideoJuego> lista = List.of();
         try{
             lista = videoJuegoRepository.findAllVideojuegos();
@@ -30,24 +30,87 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
 
     @Override
     public boolean insertarVideoJuego(VideoJuego videoJuego) {
+        try {
+            VideoJuego juegoExistente = buscarVideoJuegoPorTitulo(videoJuego.getTitulo());
 
-        videoJuegoRepository.save(videoJuego);
-        return true;
+            if(juegoExistente!=null){
+                return false;
+            }else{
+                videoJuegoRepository.insertVideoJuego(videoJuego.getTitulo(), videoJuego.getDesarrolladora(), videoJuego.getLanzamiento());
+                return true;
+            }
+        }catch (Exception ex){
+            return false;
+        }
+
     }
 
     @Override
     public boolean eliminarVideoJuego(Integer id) {
+        try{
+            if(id != null) {
+                VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosById(id);
+                videoJuegoRepository.deleteVideoJuegoById(videoJuego.getIdJuego());
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception ex){
+            return false;
+        }
+    }
+
+    @Override
+    public boolean modificarVideoJuego(Integer id, VideoJuego videoJuegoNuevo) {
+        try{
+            VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosById(id);
+            if(videoJuegoNuevo !=null && videoJuego.getIdJuego() != null){
+                videoJuegoRepository.updateVideoJuegoById(id,videoJuegoNuevo.getTitulo(),videoJuegoNuevo.getDesarrolladora(), videoJuegoNuevo.getLanzamiento());
+                return true;
+            }
+        }catch(Exception ex){
+            return false;
+        }
         return false;
     }
 
     @Override
-    public boolean modificarVideoJuego(Integer id, VideoJuego videoJuego) {
-        return false;
-    }
-
-    @Override
-    public Persona buscarVideoJuego(Integer id) {
+    public VideoJuego buscarVideoJuego(Integer id) {
+        try{
+            if(id != null ){
+                VideoJuego juegoEncontrado = videoJuegoRepository.findVideoJuegosById(id);
+                return juegoEncontrado;
+            }
+        }catch (Exception ex){
+            return null;
+        }
         return null;
+    }
+
+    @Override
+    public List<VideoJuego> listarVideoJuegosPorDesarrolladora(String desarrolladora) {
+        List<VideoJuego> lista = List.of();
+        try{
+            lista = videoJuegoRepository.findAllVideoJuegosByDesarrolladoraOrderBy(desarrolladora);
+            System.out.println(lista);
+            return lista;
+        }catch (Exception ex){
+            return lista;
+        }
+    }
+
+    public VideoJuego buscarVideoJuegoPorTitulo(String titulo){
+
+        try{
+            if(titulo != null ){
+                VideoJuego juegoEncontrado = videoJuegoRepository.findVideoJuegosByTitulo(titulo);
+                return juegoEncontrado;
+            }
+        }catch (Exception ex){
+            return null;
+        }
+        return null;
+
     }
 
 

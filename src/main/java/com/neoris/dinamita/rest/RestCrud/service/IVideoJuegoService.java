@@ -1,13 +1,12 @@
 package com.neoris.dinamita.rest.RestCrud.service;
 
-import com.neoris.dinamita.rest.RestCrud.model.Persona;
 import com.neoris.dinamita.rest.RestCrud.model.VideoJuego;
 
 import java.util.List;
 
 public interface IVideoJuegoService {
 
-    public List<VideoJuego> listarVideoJuego();
+    public List<VideoJuego> listarVideoJuegos();
 
     public boolean insertarVideoJuego(VideoJuego videoJuego);
 
@@ -15,6 +14,8 @@ public interface IVideoJuegoService {
 
     public boolean modificarVideoJuego(Integer id, VideoJuego videoJuego);
 
-    public Persona buscarVideoJuego(Integer id);
+    public VideoJuego buscarVideoJuego(Integer id);
+
+    public List<VideoJuego> listarVideoJuegosPorDesarrolladora(String desarrolladora);
 
 }
