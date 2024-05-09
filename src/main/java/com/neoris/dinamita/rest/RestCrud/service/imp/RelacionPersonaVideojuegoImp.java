@@ -8,6 +8,8 @@ import com.neoris.dinamita.rest.RestCrud.service.IRelacionPersonaVideojuego;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego {
 
@@ -23,8 +25,54 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
         Persona persona = personaRepository.findPersonaByEmail(email);
         VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosByTitulo(tituloVideojuego);
 
-        persona.getVideojuegos().add(videoJuego);
-        personaRepository.save(persona);
-        return true;
+        try{
+            if(persona != null && videoJuego != null){
+                persona.getVideojuegos().add(videoJuego);
+                personaRepository.save(persona);
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception e){
+            return false;
+        }
+
+    }
+
+    @Override
+    public boolean eliminarVideojuegoPersona(String email, String tituloVideojuego) {
+        Persona persona = personaRepository.findPersonaByEmail(email);
+        VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosByTitulo(tituloVideojuego);
+
+        try {
+            if(persona != null && videoJuego != null){
+                persona.getVideojuegos().remove(videoJuego);
+                personaRepository.save(persona);
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public boolean editarRegistroVideojuegoPersona(String email, String tituloEditar, String tituloNuevo) {
+        Persona persona = personaRepository.findPersonaByEmail(email);
+        VideoJuego videoJuegoEditar = videoJuegoRepository.findVideoJuegosByTitulo(tituloEditar);
+        VideoJuego videoJuegoNuevo = videoJuegoRepository.findVideoJuegosByTitulo(tituloNuevo);
+
+        List<VideoJuego> videojuegosPersona = persona.getVideojuegos();
+
+        if(videojuegosPersona.contains(videoJuegoEditar)){
+            videojuegosPersona.remove(videoJuegoEditar);
+            videojuegosPersona.add(videoJuegoNuevo);
+            persona.setVideojuegos(videojuegosPersona);
+            personaRepository.save(persona);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
