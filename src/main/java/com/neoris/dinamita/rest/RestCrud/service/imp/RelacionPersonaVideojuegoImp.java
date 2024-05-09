@@ -68,11 +68,22 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
         if(videojuegosPersona.contains(videoJuegoEditar)){
             videojuegosPersona.remove(videoJuegoEditar);
             videojuegosPersona.add(videoJuegoNuevo);
+            //videojuegosPersona.set(videoJuegoEditar, videoJuegoNuevo);
             persona.setVideojuegos(videojuegosPersona);
             personaRepository.save(persona);
             return true;
         }else{
             return false;
         }
+    }
+
+    @Override
+    public List<VideoJuego> listaVideoJuegosPorPersona(String email) {
+
+        Persona persona = personaRepository.findPersonaByEmail(email);
+        if(persona != null){
+            return persona.getVideojuegos();
+        }
+        return null;
     }
 }
