@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name= "persona")
+@Table(name= "personas")
 public class Persona {
 
     @Id
@@ -35,7 +35,7 @@ public class Persona {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
-            name = "persona_videojuego",
+            name = "personas_videojuegos",
             joinColumns = @JoinColumn(name = "persona_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "videojuego_id", referencedColumnName = "ID_JUEGO")
     )

@@ -36,7 +36,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
             if(juegoExistente!=null){
                 return false;
             }else{
-                videoJuegoRepository.insertVideoJuego(videoJuego.getTitulo(), videoJuego.getDesarrolladora(), videoJuego.getLanzamiento());
+                videoJuegoRepository.insertVideoJuego(videoJuego.getTitulo().toUpperCase(), videoJuego.getDesarrolladora().toUpperCase(), videoJuego.getLanzamiento());
                 return true;
             }
         }catch (Exception ex){
@@ -65,7 +65,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
         try{
             VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosById(id);
             if(videoJuegoNuevo !=null && videoJuego.getIdJuego() != null){
-                videoJuegoRepository.updateVideoJuegoById(id,videoJuegoNuevo.getTitulo(),videoJuegoNuevo.getDesarrolladora(), videoJuegoNuevo.getLanzamiento());
+                videoJuegoRepository.updateVideoJuegoById(id,videoJuegoNuevo.getTitulo().toUpperCase(),videoJuegoNuevo.getDesarrolladora().toUpperCase(), videoJuegoNuevo.getLanzamiento());
                 return true;
             }
         }catch(Exception ex){
@@ -91,7 +91,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
     public List<VideoJuego> listarVideoJuegosPorDesarrolladora(String desarrolladora) {
         List<VideoJuego> lista = List.of();
         try{
-            lista = videoJuegoRepository.findAllVideoJuegosByDesarrolladoraOrderBy(desarrolladora);
+            lista = videoJuegoRepository.findAllVideoJuegosByDesarrolladoraOrderBy(desarrolladora.toUpperCase());
             System.out.println(lista);
             return lista;
         }catch (Exception ex){
@@ -103,7 +103,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
 
         try{
             if(titulo != null ){
-                VideoJuego juegoEncontrado = videoJuegoRepository.findVideoJuegosByTitulo(titulo);
+                VideoJuego juegoEncontrado = videoJuegoRepository.findVideoJuegosByTitulo(titulo.toUpperCase());
                 return juegoEncontrado;
             }
         }catch (Exception ex){

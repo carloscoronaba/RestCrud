@@ -34,6 +34,10 @@ public class PersonaServiceImp implements IPersonaService {
             if(personaExistente!=null){
                 return false;
             }else{
+                // Convertir los campos a mayúsculas antes de guardar
+                persona.setNombre(persona.getNombre().toUpperCase());
+                persona.setApellido(persona.getApellido().toUpperCase());
+                persona.setEmail(persona.getEmail().toUpperCase());
                 personaRepositorio.save(persona);
                 return true;
             }
@@ -47,7 +51,7 @@ public class PersonaServiceImp implements IPersonaService {
 
         try{
             if(email != "") {
-                Persona persona = personaRepositorio.findPersonaByEmail(email);
+                Persona persona = personaRepositorio.findPersonaByEmail(email.toUpperCase());
                 personaRepositorio.delete(persona);
                 return true;
             }else{
@@ -63,10 +67,10 @@ public class PersonaServiceImp implements IPersonaService {
         try{
             if(email != "" && personaNueva !=null){
                 Persona personaEditar = buscarPersona(email);
-                personaEditar.setNombre(personaNueva.getNombre());
-                personaEditar.setApellido(personaNueva.getApellido());
+                personaEditar.setNombre(personaNueva.getNombre().toUpperCase());
+                personaEditar.setApellido(personaNueva.getApellido().toUpperCase());
                 personaEditar.setEdad(personaNueva.getEdad());
-                personaEditar.setEmail(personaNueva.getEmail());
+                personaEditar.setEmail(personaNueva.getEmail().toUpperCase());
                 personaRepositorio.save(personaEditar);
                 return true;
             }
@@ -80,7 +84,7 @@ public class PersonaServiceImp implements IPersonaService {
     public Persona buscarPersona(String email) {
         try{
             if(email != ""){
-                Persona persona = personaRepositorio.findPersonaByEmail(email);
+                Persona persona = personaRepositorio.findPersonaByEmail(email.toUpperCase());
                 return persona;
             }
         }catch (Exception ex){

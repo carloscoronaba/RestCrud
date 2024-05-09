@@ -22,8 +22,8 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
 
     @Override
     public boolean asignarPersonaVideojuego(String email, String tituloVideojuego) {
-        Persona persona = personaRepository.findPersonaByEmail(email);
-        VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosByTitulo(tituloVideojuego);
+        Persona persona = personaRepository.findPersonaByEmail(email.toUpperCase());
+        VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosByTitulo(tituloVideojuego.toUpperCase());
 
         try{
             if(persona != null && videoJuego != null){
@@ -41,8 +41,8 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
 
     @Override
     public boolean eliminarVideojuegoPersona(String email, String tituloVideojuego) {
-        Persona persona = personaRepository.findPersonaByEmail(email);
-        VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosByTitulo(tituloVideojuego);
+        Persona persona = personaRepository.findPersonaByEmail(email.toUpperCase());
+        VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosByTitulo(tituloVideojuego.toUpperCase());
 
         try {
             if(persona != null && videoJuego != null){
@@ -59,9 +59,9 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
 
     @Override
     public boolean editarRegistroVideojuegoPersona(String email, String tituloEditar, String tituloNuevo) {
-        Persona persona = personaRepository.findPersonaByEmail(email);
-        VideoJuego videoJuegoEditar = videoJuegoRepository.findVideoJuegosByTitulo(tituloEditar);
-        VideoJuego videoJuegoNuevo = videoJuegoRepository.findVideoJuegosByTitulo(tituloNuevo);
+        Persona persona = personaRepository.findPersonaByEmail(email.toUpperCase());
+        VideoJuego videoJuegoEditar = videoJuegoRepository.findVideoJuegosByTitulo(tituloEditar.toUpperCase());
+        VideoJuego videoJuegoNuevo = videoJuegoRepository.findVideoJuegosByTitulo(tituloNuevo.toUpperCase());
 
         List<VideoJuego> videojuegosPersona = persona.getVideojuegos();
 
@@ -80,7 +80,7 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
     @Override
     public List<VideoJuego> listaVideoJuegosPorPersona(String email) {
 
-        Persona persona = personaRepository.findPersonaByEmail(email);
+        Persona persona = personaRepository.findPersonaByEmail(email.toUpperCase());
         if(persona != null){
             return persona.getVideojuegos();
         }
