@@ -31,4 +31,12 @@ public class VideoJuego {
     @Column(name = "LANZAMIENTO")
     private int lanzamiento;
 
+    @ManyToMany
+    @JoinTable(
+            name = "videojuego_propietario",
+            joinColumns = @JoinColumn(name = "videojuego_id"),
+            inverseJoinColumns = @JoinColumn(name = "propietario_id")
+    )
+    private List<Persona> propietarios;
+
 }

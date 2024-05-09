@@ -3,6 +3,8 @@ package com.neoris.dinamita.rest.RestCrud.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,10 +21,6 @@ public class Persona {
     private int edad;
     private String email;
 
-    /*public Persona(){
-        this.id = UUID.randomUUID().toString().replaceAll("-", "");
-    }*/
-
     @Override
     public String toString() {
         return id +
@@ -31,5 +29,8 @@ public class Persona {
                 "," + edad +
                 "," + email;
     }
+
+    @ManyToMany(mappedBy = "propietarios")
+    private List<VideoJuego> videoJuegos;
 
 }
