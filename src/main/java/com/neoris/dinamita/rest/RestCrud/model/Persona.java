@@ -1,8 +1,10 @@
 package com.neoris.dinamita.rest.RestCrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,7 +32,13 @@ public class Persona {
                 "," + email;
     }
 
-    @ManyToMany(mappedBy = "propietarios")
-    private List<VideoJuego> videoJuegos;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "persona_videojuego",
+            joinColumns = @JoinColumn(name = "persona_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "videojuego_id", referencedColumnName = "ID_JUEGO")
+    )
+    private List<VideoJuego> videojuegos = new ArrayList<>();
 
 }

@@ -1,5 +1,6 @@
 package com.neoris.dinamita.rest.RestCrud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,12 +33,8 @@ public class VideoJuego {
     @Column(name = "LANZAMIENTO")
     private int lanzamiento;
 
-    @ManyToMany
-    @JoinTable(
-            name = "videojuego_propietario",
-            joinColumns = @JoinColumn(name = "videojuego_id"),
-            inverseJoinColumns = @JoinColumn(name = "propietario_id")
-    )
-    private List<Persona> propietarios;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "videojuegos")
+    private List<Persona> personas = new ArrayList<>();
 
 }
