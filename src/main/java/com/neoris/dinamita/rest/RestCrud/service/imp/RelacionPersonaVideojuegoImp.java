@@ -8,6 +8,7 @@ import com.neoris.dinamita.rest.RestCrud.service.IRelacionPersonaVideojuego;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
         VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosByTitulo(tituloVideojuego.toUpperCase());
 
         try{
-            if(persona != null && videoJuego != null){
+            if(persona != null && videoJuego != null && !persona.getVideojuegos().contains(videoJuego)){
                 persona.getVideojuegos().add(videoJuego);
                 personaRepository.save(persona);
                 return true;
@@ -68,7 +69,6 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
         if(videojuegosPersona.contains(videoJuegoEditar)){
             videojuegosPersona.remove(videoJuegoEditar);
             videojuegosPersona.add(videoJuegoNuevo);
-            //videojuegosPersona.set(videoJuegoEditar, videoJuegoNuevo);
             persona.setVideojuegos(videojuegosPersona);
             personaRepository.save(persona);
             return true;
@@ -80,10 +80,16 @@ public class RelacionPersonaVideojuegoImp implements IRelacionPersonaVideojuego 
     @Override
     public List<VideoJuego> listaVideoJuegosPorPersona(String email) {
 
-        Persona persona = personaRepository.findPersonaByEmail(email.toUpperCase());
-        if(persona != null){
-            return persona.getVideojuegos();
+        try {
+            Persona persona = personaRepository.findPersonaByEmail(email.toUpperCase());
+
+            if (persona != null && !persona.getVideojuegos().isEmpty()) {
+                return persona.getVideojuegos();
+            } else {
+                return Collections.emptyList();
+            }
+        } catch (Exception e) {
+            return Collections.emptyList();
         }
-        return null;
     }
 }
