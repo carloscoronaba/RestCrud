@@ -33,8 +33,8 @@ public class VideoJuego {
     @Column(name = "LANZAMIENTO")
     private int lanzamiento;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "videojuegos")
-    private List<Persona> personas = new ArrayList<>();
+    //@JsonIgnore
+    //@ManyToMany(mappedBy = "videojuegos")
+    //private List<Persona> personas = new ArrayList<>();
 
 }

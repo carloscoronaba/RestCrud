@@ -32,7 +32,7 @@ public class Persona {
                 "," + email;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "personas_videojuegos",
@@ -40,5 +40,6 @@ public class Persona {
             inverseJoinColumns = @JoinColumn(name = "videojuego_id", referencedColumnName = "ID_JUEGO")
     )
     private List<VideoJuego> videojuegos = new ArrayList<>();
+    
 
 }
