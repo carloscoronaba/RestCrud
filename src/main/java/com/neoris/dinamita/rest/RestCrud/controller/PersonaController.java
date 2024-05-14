@@ -22,6 +22,12 @@ public class PersonaController {
     @Autowired
     IPersonaService servicio;
 
+    @Operation(summary = "Post para insertar un objeto persona")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "persona ingresada"),
+            @ApiResponse(responseCode = "409", description = "correo ya existe"),
+            @ApiResponse(responseCode = "500", description = "Error en el servidor")
+    })
     @PostMapping("/insertar")
     public ResponseEntity<String> insertarPersona(@RequestBody Persona persona){
         try {
@@ -41,13 +47,10 @@ public class PersonaController {
 
     @Operation(summary = "Get para obtener lista de personas")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "persona encontrada",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Book.class)) }),
-            @ApiResponse(responseCode = "400", description = "Solicitud invalida",
-                    content = @Content),
-            @ApiResponse(responseCode = "500", description = "Error en el servidor",
-                    content = @Content) })
+            @ApiResponse(responseCode = "200", description = "persona encontrada"),
+            @ApiResponse(responseCode = "400", description = "Solicitud invalida"),
+            @ApiResponse(responseCode = "500", description = "Error en el servidor")
+    })
     @GetMapping("/listaPersonas")
     public ResponseEntity<Object>listarPersonas(){
         try{
@@ -62,6 +65,11 @@ public class PersonaController {
         }
     }
 
+    @Operation(summary = "Get para buscar un objeto persona")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "persona ingresada"),
+            @ApiResponse(responseCode = "404", description = "persona no encontrada")
+    })
     @GetMapping("/buscarPersona")
     public ResponseEntity<Object> buscarPersona(@RequestParam String email) {
         Persona persona = servicio.buscarPersona(email);
@@ -72,6 +80,11 @@ public class PersonaController {
         }
     }
 
+    @Operation(summary = "Delete para eliminar una persona")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "persona eliminada"),
+            @ApiResponse(responseCode = "404", description = "persona no encontrada"),
+    })
     @DeleteMapping("/eliminarPersona")
     public ResponseEntity<String> eliminarPersona(@RequestParam String email) {
         boolean eliminado = servicio.eliminarPersona(email);
@@ -82,6 +95,11 @@ public class PersonaController {
         }
     }
 
+    @Operation(summary = "Put para modificar una persona")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "persona editada"),
+            @ApiResponse(responseCode = "404", description = "correo no encontrado")
+    })
     @PutMapping("/modificarPersona")
     public ResponseEntity<String> modificarPersona(@RequestParam String email, @RequestBody Persona persona){
         boolean editado = servicio.modificarPersona(email, persona);
