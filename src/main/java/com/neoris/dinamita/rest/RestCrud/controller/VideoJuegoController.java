@@ -2,11 +2,17 @@ package com.neoris.dinamita.rest.RestCrud.controller;
 
 import com.neoris.dinamita.rest.RestCrud.model.VideoJuego;
 import com.neoris.dinamita.rest.RestCrud.service.IVideoJuegoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @RestController
@@ -16,6 +22,14 @@ public class VideoJuegoController {
     @Autowired
     IVideoJuegoService videoJuegoService;
 
+
+    @Operation(summary = "Get para obtener lista de VideoJuegos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de VideoJuegos encontrada",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = VideoJuego.class))}),
+            @ApiResponse(responseCode = "400", description = "Lista de VideoJuegos vacia"),
+            @ApiResponse(responseCode = "500", description = "Error en el Servidor")
+    })
     @GetMapping("/lista")
     public ResponseEntity<Object> listarVideoJuegos(){
         try{
@@ -30,6 +44,14 @@ public class VideoJuegoController {
         }
     }
 
+
+    @Operation(summary = "Post para insertar un VideoJuego")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "VideoJuego insertado con éxito",
+                    content = @Content(mediaType = "text/plain", schema = @Schema(type = "string"))),
+            @ApiResponse(responseCode = "400", description = "Ya existe ese VideoJuego"),
+            @ApiResponse(responseCode = "500", description = "Error en el Servidor")
+    })
     @PostMapping("/insertar")
     public ResponseEntity<String> insertarVideoJuego(@RequestBody VideoJuego videoJuego){
         try {
@@ -47,6 +69,14 @@ public class VideoJuegoController {
 
     }
 
+
+    @Operation(summary = "Get para buscar un VideoJuego")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "VideoJuego encontrado",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = VideoJuego.class))),
+            @ApiResponse(responseCode = "400", description = "VideoJuego NO encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error en el Servidor")
+    })
     @GetMapping("/buscarVideojuego")
     public ResponseEntity<Object> buscarVideoJueg(@RequestParam Integer id) {
         VideoJuego videoJuego = videoJuegoService.buscarVideoJuego(id);
@@ -57,6 +87,14 @@ public class VideoJuegoController {
         }
     }
 
+
+    @Operation(summary = "Delete para eliminar un VideoJuego")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "VideoJuego eliminado con éxito",
+                    content = @Content(mediaType = "application/json", schema = @Schema(type = "string"))),
+            @ApiResponse(responseCode = "400", description = "VideoJuego a eliminar NO encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error en el Servidor")
+    })
     @DeleteMapping("/eliminarVideoJuego")
     public ResponseEntity<String> eliminarVideoJuego(@RequestParam Integer id) {
         boolean eliminado = videoJuegoService.eliminarVideoJuego(id);
@@ -67,6 +105,14 @@ public class VideoJuegoController {
         }
     }
 
+
+    @Operation(summary = "Put para modificar un VideoJuego")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "VideoJuego modificado con éxito",
+                    content = @Content(mediaType = "application/json", schema = @Schema(type = "string"))),
+            @ApiResponse(responseCode = "400", description = "VideoJuego a modificar NO encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error en el Servidor")
+    })
     @PutMapping("/modificarVideoJuego")
     public ResponseEntity<String> modificarPersona(@RequestParam Integer id, @RequestBody VideoJuego videoJuego){
         boolean editado = videoJuegoService.modificarVideoJuego(id, videoJuego);
@@ -77,6 +123,14 @@ public class VideoJuegoController {
         }
     }
 
+
+    @Operation(summary = "Get para obtener lista de VideoJuegos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de VideoJuegos por Desarrolladora encontrada",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = VideoJuego.class))}),
+            @ApiResponse(responseCode = "400", description = "Lista de VideoJuegos vacia"),
+            @ApiResponse(responseCode = "500", description = "Error en el Servidor")
+    })
     @GetMapping("/listaDesarrollador")
     public ResponseEntity<Object> listarVideoJuegos(@RequestParam String desarrolladora){
         try{
