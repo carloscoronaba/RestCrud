@@ -2,11 +2,17 @@ package com.neoris.dinamita.rest.RestCrud.controller;
 
 import com.neoris.dinamita.rest.RestCrud.model.Persona;
 import com.neoris.dinamita.rest.RestCrud.service.IPersonaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @RestController
@@ -33,7 +39,15 @@ public class PersonaController {
 
     }
 
-
+    @Operation(summary = "Get para obtener lista de personas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "persona encontrada",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Book.class)) }),
+            @ApiResponse(responseCode = "400", description = "Solicitud invalida",
+                    content = @Content),
+            @ApiResponse(responseCode = "500", description = "Error en el servidor",
+                    content = @Content) })
     @GetMapping("/listaPersonas")
     public ResponseEntity<Object>listarPersonas(){
         try{
