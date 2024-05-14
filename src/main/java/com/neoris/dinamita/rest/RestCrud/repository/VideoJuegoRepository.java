@@ -23,20 +23,32 @@ public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer>
     @Query("SELECT v FROM VideoJuego v WHERE v.titulo = :titulo")
     public VideoJuego findVideoJuegosByTitulo(@Param("titulo") String titulo);
 
-    @Transactional
+    /*@Transactional
     @Modifying
     @Query("INSERT INTO VideoJuego v(v.titulo, v.desarrolladora, v.lanzamiento) VALUES (:titulo, :desarrolladora, :lanzamiento)")
     void insertVideoJuego(@Param("titulo") String titulo, @Param("desarrolladora") String desarrolladora, @Param("lanzamiento") int lanzamiento);
+    */
+
+    @Transactional
+    @Modifying
+    @Query("INSERT INTO VideoJuego v(v.titulo, v.desarrolladora, v.lanzamiento, v.urlPortada) VALUES (:titulo, :desarrolladora, :lanzamiento, :urlPortada)")
+    void insertVideoJuego(@Param("titulo") String titulo, @Param("desarrolladora") String desarrolladora, @Param("lanzamiento") int lanzamiento, @Param("urlPortada") String urlPortada);
 
     @Transactional
     @Modifying
     @Query("DELETE FROM VideoJuego v WHERE v.idJuego = :id")
     void deleteVideoJuegoById(@Param("id") Integer id);
 
-    @Transactional
+    /*@Transactional
     @Modifying
     @Query("UPDATE VideoJuego v SET v.titulo = :titulo, v.desarrolladora = :desarrolladora, v.lanzamiento = :lanzamiento WHERE v.idJuego = :id")
     void updateVideoJuegoById(@Param("id") Integer id, @Param("titulo") String titulo, @Param("desarrolladora") String desarrolladora, @Param("lanzamiento") int lanzamiento);
+    */
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE VideoJuego v SET v.titulo = :titulo, v.desarrolladora = :desarrolladora, v.lanzamiento = :lanzamiento, v.urlPortada = :urlPortada WHERE v.idJuego = :id")
+    void updateVideoJuegoById(@Param("id") Integer id, @Param("titulo") String titulo, @Param("desarrolladora") String desarrolladora, @Param("lanzamiento") int lanzamiento, @Param("urlPortada") String urlPortada);
 
 
     @Query("SELECT v FROM VideoJuego v WHERE v.desarrolladora = :desarrolladora ORDER BY titulo")

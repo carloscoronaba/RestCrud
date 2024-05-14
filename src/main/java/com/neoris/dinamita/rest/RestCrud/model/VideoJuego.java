@@ -33,6 +33,9 @@ public class VideoJuego {
     @Column(name = "LANZAMIENTO")
     private int lanzamiento;
 
+    @Column(name = "URL_PORTADA")
+    private String urlPortada;
+
     //@JsonIgnore
     //@ManyToMany(mappedBy = "videojuegos")
     //private List<Persona> personas = new ArrayList<>();

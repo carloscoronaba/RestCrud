@@ -36,7 +36,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
             if(juegoExistente!=null){
                 return false;
             }else{
-                videoJuegoRepository.insertVideoJuego(videoJuego.getTitulo().toUpperCase(), videoJuego.getDesarrolladora().toUpperCase(), videoJuego.getLanzamiento());
+                videoJuegoRepository.insertVideoJuego(videoJuego.getTitulo().toUpperCase(), videoJuego.getDesarrolladora().toUpperCase(), videoJuego.getLanzamiento(), videoJuego.getUrlPortada());
                 return true;
             }
         }catch (Exception ex){
@@ -65,7 +65,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
         try{
             VideoJuego videoJuego = videoJuegoRepository.findVideoJuegosById(id);
             if(videoJuegoNuevo !=null && videoJuego.getIdJuego() != null){
-                videoJuegoRepository.updateVideoJuegoById(id,videoJuegoNuevo.getTitulo().toUpperCase(),videoJuegoNuevo.getDesarrolladora().toUpperCase(), videoJuegoNuevo.getLanzamiento());
+                videoJuegoRepository.updateVideoJuegoById(id,videoJuegoNuevo.getTitulo().toUpperCase(),videoJuegoNuevo.getDesarrolladora().toUpperCase(), videoJuegoNuevo.getLanzamiento(), videoJuego.getUrlPortada());
                 return true;
             }
         }catch(Exception ex){
