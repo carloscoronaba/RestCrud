@@ -5,6 +5,8 @@ import com.neoris.dinamita.rest.RestCrud.model.VideoJuego;
 import com.neoris.dinamita.rest.RestCrud.repository.VideoJuegoRepository;
 import com.neoris.dinamita.rest.RestCrud.service.IVideoJuegoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +17,7 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
     @Autowired
     VideoJuegoRepository videoJuegoRepository;
 
-    @Override
+    /*@Override
     public List<VideoJuego> listarVideoJuegos() {
         List<VideoJuego> lista = List.of();
         try{
@@ -26,7 +28,20 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
             return lista;
         }
 
+    }*/
+
+    @Override
+    public Page<VideoJuego> paginarVideoJuegos(Pageable pageable){
+        Page<VideoJuego> pagina = Page.empty();
+        try{
+            pagina = videoJuegoRepository.findAll(pageable);
+            System.out.println(pagina);
+            return pagina;
+        }catch (Exception ex){
+            return pagina;
+        }
     }
+
 
     @Override
     public boolean insertarVideoJuego(VideoJuego videoJuego) {
@@ -88,14 +103,15 @@ public class VideoJuegoServiceImp implements IVideoJuegoService {
     }
 
     @Override
-    public List<VideoJuego> listarVideoJuegosPorDesarrolladora(String desarrolladora) {
-        List<VideoJuego> lista = List.of();
+    public Page<VideoJuego> listarVideoJuegosPorDesarrolladora(String desarrolladora, Pageable pageable) {
+        Page<VideoJuego> pagina = Page.empty();
+        //List<VideoJuego> lista = List.of();
         try{
-            lista = videoJuegoRepository.findAllVideoJuegosByDesarrolladoraOrderBy(desarrolladora.toUpperCase());
-            System.out.println(lista);
-            return lista;
+            pagina = videoJuegoRepository.findAllVideoJuegosByDesarrolladoraOrderBy(desarrolladora.toUpperCase(), pageable);
+            System.out.println(pagina);
+            return pagina;
         }catch (Exception ex){
-            return lista;
+            return pagina;
         }
     }
 

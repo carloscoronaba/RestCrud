@@ -1,6 +1,8 @@
 package com.neoris.dinamita.rest.RestCrud.repository;
 
 import com.neoris.dinamita.rest.RestCrud.model.VideoJuego;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +17,8 @@ public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer>
 
     //Encuentra
     @Query("SELECT v FROM VideoJuego v")
-    public List<VideoJuego> findAllVideojuegos();
+    public Page<VideoJuego> findAll(Pageable pageable);
+    //public List<VideoJuego> findAllVideojuegos();
 
     @Query("SELECT v FROM VideoJuego v WHERE v.idJuego = :id")
     public VideoJuego findVideoJuegosById(@Param("id") Integer id);
@@ -52,5 +55,6 @@ public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer>
 
 
     @Query("SELECT v FROM VideoJuego v WHERE v.desarrolladora = :desarrolladora ORDER BY titulo")
-    public List<VideoJuego> findAllVideoJuegosByDesarrolladoraOrderBy(@Param("desarrolladora") String desarrolladora);
+    public Page<VideoJuego> findAllVideoJuegosByDesarrolladoraOrderBy(@Param("desarrolladora") String desarrolladora, Pageable pageable);
+    //public List<VideoJuego> findAllVideoJuegosByDesarrolladoraOrderBy(@Param("desarrolladora") String desarrolladora);
 }

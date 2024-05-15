@@ -8,6 +8,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,13 +35,24 @@ public class VideoJuegoController {
             @ApiResponse(responseCode = "500", description = "Error en el Servidor")
     })
     @GetMapping("/lista")
-    public ResponseEntity<Object> listarVideoJuegos(){
+    public ResponseEntity<Object> listarVideoJuegos(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "ASC") String direction){
         try{
-            List<VideoJuego> lista = videoJuegoService.listarVideoJuegos();
-            if(lista.isEmpty()){
+            //List<VideoJuego> lista = videoJuegoService.paginarVideoJuegos();
+            Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+
+            Pageable pageable = PageRequest.of(page,size, sort);
+
+            Page<VideoJuego> pagina = videoJuegoService.paginarVideoJuegos(pageable);
+
+            if(pagina.isEmpty()){
+                System.out.println("No entra");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La lista de Video Juegos esta vacia");
             }else{
-                return ResponseEntity.ok().body(lista);
+                return ResponseEntity.ok().body(pagina);
             }
         }catch (Exception ex){
             return ResponseEntity.internalServerError().body(null);
@@ -132,13 +147,19 @@ public class VideoJuegoController {
             @ApiResponse(responseCode = "500", description = "Error en el Servidor")
     })
     @GetMapping("/listaDesarrollador")
-    public ResponseEntity<Object> listarVideoJuegos(@RequestParam String desarrolladora){
+    public ResponseEntity<Object> listarVideoJuegos(
+            @RequestParam String desarrolladora,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size){
         try{
-            List<VideoJuego> lista = videoJuegoService.listarVideoJuegosPorDesarrolladora(desarrolladora);
-            if(lista.isEmpty()){
+            Pageable pageable = PageRequest.of(page,size);
+            Page<VideoJuego> pagina = videoJuegoService.listarVideoJuegosPorDesarrolladora(desarrolladora, pageable);
+
+            //List<VideoJuego> lista = videoJuegoService.listarVideoJuegosPorDesarrolladora(desarrolladora);
+            if(pagina.isEmpty()){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No existen video juegos de esa desarrolladora");
             }else{
-                return ResponseEntity.ok().body(lista);
+                return ResponseEntity.ok().body(pagina);
             }
         }catch (Exception ex){
             return ResponseEntity.internalServerError().body(null);
