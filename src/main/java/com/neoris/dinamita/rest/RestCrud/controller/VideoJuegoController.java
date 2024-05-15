@@ -150,9 +150,14 @@ public class VideoJuegoController {
     public ResponseEntity<Object> listarVideoJuegos(
             @RequestParam String desarrolladora,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size){
+            @RequestParam(defaultValue = "2") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "ASC") String direction){
         try{
-            Pageable pageable = PageRequest.of(page,size);
+            Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+
+            Pageable pageable = PageRequest.of(page,size, sort);
+
             Page<VideoJuego> pagina = videoJuegoService.listarVideoJuegosPorDesarrolladora(desarrolladora, pageable);
 
             //List<VideoJuego> lista = videoJuegoService.listarVideoJuegosPorDesarrolladora(desarrolladora);

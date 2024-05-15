@@ -54,7 +54,7 @@ public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer>
     void updateVideoJuegoById(@Param("id") Integer id, @Param("titulo") String titulo, @Param("desarrolladora") String desarrolladora, @Param("lanzamiento") int lanzamiento, @Param("urlPortada") String urlPortada);
 
 
-    @Query("SELECT v FROM VideoJuego v WHERE v.desarrolladora = :desarrolladora ORDER BY titulo")
+    @Query("SELECT v FROM VideoJuego v WHERE v.desarrolladora = :desarrolladora ")
     public Page<VideoJuego> findAllVideoJuegosByDesarrolladoraOrderBy(@Param("desarrolladora") String desarrolladora, Pageable pageable);
     //public List<VideoJuego> findAllVideoJuegosByDesarrolladoraOrderBy(@Param("desarrolladora") String desarrolladora);
 }
