@@ -1,12 +1,12 @@
 package com.neoris.dinamita.rest.RestCrud.service;
 
 import com.neoris.dinamita.rest.RestCrud.model.Persona;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IPersonaService {
 
-    public List<Persona> listarPersonas();
+    public Page<Persona> listarPersonas(Pageable pageable);
 
     public boolean insertarPersona(Persona persona);
 

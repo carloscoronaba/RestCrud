@@ -8,6 +8,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,9 +56,21 @@ public class PersonaController {
             @ApiResponse(responseCode = "500", description = "Error en el servidor")
     })
     @GetMapping("/listaPersonas")
-    public ResponseEntity<Object>listarPersonas(){
+    public ResponseEntity<Object>listarPersonas(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "ASC") String direction
+    ){
         try{
-            List<Persona> personas = servicio.listarPersonas();
+            // Definir la ordenación
+            Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
+
+            Pageable pageable = PageRequest.of(page,size, sort);
+
+            Page<Persona> personas = servicio.listarPersonas(pageable);
+
+
             if(personas.isEmpty()){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La lista esta vacia");
             }else{

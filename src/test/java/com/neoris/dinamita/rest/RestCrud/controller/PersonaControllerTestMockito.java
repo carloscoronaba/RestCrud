@@ -98,7 +98,7 @@ class PersonaControllerTestMockito {
         listaEsperada.add(persona2);
 
         //Simula el metodo listarPersonas del Servicio regresando la lista de Personas
-        when(personaServicio.listarPersonas()).thenReturn(listaEsperada);
+        when(personaServicio.listarPersonas(pageable)).thenReturn(listaEsperada);
 
         //Simula el metodo listarPersonas del Controlador
         ResponseEntity<Object> response = personaController.listarPersonas();
