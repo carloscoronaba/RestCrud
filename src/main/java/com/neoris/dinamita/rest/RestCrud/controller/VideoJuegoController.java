@@ -31,12 +31,13 @@ public class VideoJuegoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de VideoJuegos encontrada",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = VideoJuego.class))}),
-            @ApiResponse(responseCode = "400", description = "Lista de VideoJuegos vacia"),
+            @ApiResponse(
+responseCode = "400", description = "Lista de VideoJuegos vacia"),
             @ApiResponse(responseCode = "500", description = "Error en el Servidor")
     })
     @GetMapping("/lista")
     public ResponseEntity<Object> listarVideoJuegos(
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "ASC") String direction){
@@ -44,7 +45,7 @@ public class VideoJuegoController {
             //List<VideoJuego> lista = videoJuegoService.paginarVideoJuegos();
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
 
-            Pageable pageable = PageRequest.of(page,size, sort);
+            Pageable pageable = PageRequest.of(page - 1,size, sort);
 
             Page<VideoJuego> pagina = videoJuegoService.paginarVideoJuegos(pageable);
 
@@ -149,14 +150,14 @@ public class VideoJuegoController {
     @GetMapping("/listaDesarrollador")
     public ResponseEntity<Object> listarVideoJuegos(
             @RequestParam String desarrolladora,
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "2") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "ASC") String direction){
         try{
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
 
-            Pageable pageable = PageRequest.of(page,size, sort);
+            Pageable pageable = PageRequest.of(page - 1,size, sort);
 
             Page<VideoJuego> pagina = videoJuegoService.listarVideoJuegosPorDesarrolladora(desarrolladora, pageable);
 

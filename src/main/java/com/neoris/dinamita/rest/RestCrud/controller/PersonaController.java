@@ -57,7 +57,7 @@ public class PersonaController {
     })
     @GetMapping("/listaPersonas")
     public ResponseEntity<Object>listarPersonas(
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "2") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "ASC") String direction
@@ -66,7 +66,7 @@ public class PersonaController {
             // Definir la ordenación
             Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
 
-            Pageable pageable = PageRequest.of(page,size, sort);
+            Pageable pageable = PageRequest.of(page - 1,size, sort);
 
             Page<Persona> personas = servicio.listarPersonas(pageable);
 

@@ -15,7 +15,6 @@ import java.util.List;
 @Repository
 public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer> {
 
-    //Encuentra
     @Query("SELECT v FROM VideoJuego v")
     public Page<VideoJuego> findAll(Pageable pageable);
     //public List<VideoJuego> findAllVideojuegos();
