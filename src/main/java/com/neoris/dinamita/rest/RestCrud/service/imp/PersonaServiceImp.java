@@ -92,4 +92,15 @@ public class PersonaServiceImp implements IPersonaService {
         }
         return null;
     }
+
+
+    @Override
+    public List<Persona> listarPersonas() {
+        try {
+            return personaRepositorio.findAll();
+        } catch (Exception ex) {
+            // Manejar la excepción adecuadamente
+            return null;
+        }
+    }
 }

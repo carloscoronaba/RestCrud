@@ -46,14 +46,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.GET).hasAnyRole("ADMIN", "USER")
+                        authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.GET)
+                                .hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("/crud/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/games/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/crud/listarPersonas").hasAnyRole("ADMIN","USER")
                                 .requestMatchers("/crud/buscarPersona").hasAnyRole("ADMIN", "USER")
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(httpSecuritySessionManagementConfigurer ->
+                        httpSecuritySessionManagementConfigurer
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
@@ -71,5 +74,6 @@ public class SecurityConfig {
 
         return http.build();
     }*/
+
 
 }
