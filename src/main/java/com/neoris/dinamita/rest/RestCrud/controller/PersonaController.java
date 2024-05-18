@@ -98,7 +98,6 @@ public class PersonaController {
         }
     }
 
-    ///////////
     @GetMapping("/listaPersonas/pdf")
     public ResponseEntity<byte[]> generarPdf() {
         try {
@@ -109,21 +108,13 @@ public class PersonaController {
             // Convertir el ByteArrayOutputStream a un array de bytes
             byte[] pdfBytes = outputStream.toByteArray();
 
-            // Definir encabezados para la respuesta
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("filename", "lista_personas.pdf");
-            headers.setContentLength(pdfBytes.length);
-
-            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(pdfBytes);
         } catch (IOException e) {
             return ResponseEntity.internalServerError().body(null);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-    /////////////////
 
     @Operation(summary = "Get para buscar un objeto persona")
     @ApiResponses(value = {
