@@ -8,6 +8,7 @@ import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -44,12 +45,21 @@ public class PersonaServiceImp implements IPersonaService {
                 persona.setNombre(persona.getNombre().toUpperCase());
                 persona.setApellido(persona.getApellido().toUpperCase());
                 persona.setEmail(persona.getEmail().toUpperCase());
+                // Codificar la contraseña antes de guardarla
+                String passwordCodificada = codificarPsw(persona.getPassword());
+                persona.setPassword(passwordCodificada);
+                persona.setRol(persona.getRol());
                 personaRepositorio.save(persona);
                 return true;
             }
         }catch (Exception ex){
             return false;
         }
+    }
+
+    private String codificarPsw(String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.encode(password);
     }
 
     @Override
@@ -77,6 +87,9 @@ public class PersonaServiceImp implements IPersonaService {
                 personaEditar.setApellido(personaNueva.getApellido().toUpperCase());
                 personaEditar.setEdad(personaNueva.getEdad());
                 personaEditar.setEmail(personaNueva.getEmail().toUpperCase());
+                String passwordCodificada = codificarPsw(personaNueva.getPassword());
+                personaEditar.setPassword(passwordCodificada);
+
                 personaRepositorio.save(personaEditar);
                 return true;
             }

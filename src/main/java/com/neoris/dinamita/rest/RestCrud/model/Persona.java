@@ -22,15 +22,12 @@ public class Persona {
     private String apellido;
     private int edad;
     private String email;
+    private String password;
 
-    @Override
-    public String toString() {
-        return id +
-                "," + nombre +
-                "," + apellido +
-                "," + edad +
-                "," + email;
-    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rol_id", referencedColumnName = "id")
+    private Rol rol;
 
     //@JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -40,6 +37,6 @@ public class Persona {
             inverseJoinColumns = @JoinColumn(name = "videojuego_id", referencedColumnName = "ID_JUEGO")
     )
     private List<VideoJuego> videojuegos = new ArrayList<>();
-    
+
 
 }

@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers(HttpMethod.GET,"/crud/**").permitAll()
-                                .requestMatchers(HttpMethod.GET,"/crud/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/games/**").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/crud/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/games/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/crud/**").hasRole("ADMIN")
