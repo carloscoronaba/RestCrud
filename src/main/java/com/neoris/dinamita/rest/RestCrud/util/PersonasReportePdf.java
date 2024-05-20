@@ -23,7 +23,7 @@ public class PersonasReportePdf {
         params.put("personasData", new JRBeanCollectionDataSource(listaPersonas));
 
         JasperPrint reporte = JasperFillManager.fillReport(JasperCompileManager.compileReport(
-                ResourceUtils.getFile("C:\\Users\\marco.aguirre\\JaspersoftWorkspace\\MyReports\\personasReport.jrxml")
+                ResourceUtils.getFile("C:\\Users\\carlos.corona\\JaspersoftWorkspace\\MyReports\\personasReport.jrxml")
                         .getAbsolutePath()), params, new JREmptyDataSource());
 
         return reporte;

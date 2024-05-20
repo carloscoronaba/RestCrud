@@ -46,12 +46,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.GET)
-                                .hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/crud/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/games/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/crud/listarPersonas").hasAnyRole("ADMIN","USER")
-                                .requestMatchers("/crud/buscarPersona").hasAnyRole("ADMIN", "USER")
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers(HttpMethod.GET,"/crud/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/crud/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/crud/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/games/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/crud/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/games/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/crud/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/games/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
@@ -60,20 +63,5 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-    /*@Bean
-    public SecurityFilterChain filterChain2(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.GET).hasRole("USER")
-                                .requestMatchers("/crud/listarPersonas").hasRole("USER")
-                                .requestMatchers("/crud/buscarPersona").hasRole( "USER")
-                                .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-        return http.build();
-    }*/
-
 
 }
