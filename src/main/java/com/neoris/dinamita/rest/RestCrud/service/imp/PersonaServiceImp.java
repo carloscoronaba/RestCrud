@@ -3,15 +3,21 @@ package com.neoris.dinamita.rest.RestCrud.service.imp;
 import com.neoris.dinamita.rest.RestCrud.model.Persona;
 import com.neoris.dinamita.rest.RestCrud.repository.PersonaRepository;
 import com.neoris.dinamita.rest.RestCrud.service.IPersonaService;
+import com.neoris.dinamita.rest.RestCrud.util.PersonasReportePdf;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @Service
 public class PersonaServiceImp implements IPersonaService {
+
+    @Autowired
+    PersonasReportePdf reportePdf;
 
     @Autowired
     private PersonaRepository personaRepositorio;
@@ -102,5 +108,10 @@ public class PersonaServiceImp implements IPersonaService {
             // Manejar la excepción adecuadamente
             return null;
         }
+    }
+
+    @Override
+    public byte[] exportarPdf() throws JRException, FileNotFoundException {
+        return reportePdf.exportPdf(personaRepositorio.findAll());
     }
 }
