@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement((session) -> session
+                .sessionManagement((session) -> session //Indica que la autenticacion sera con token
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 

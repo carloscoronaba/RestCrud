@@ -48,8 +48,18 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-    public boolean eliminarUsuario(String user) {
-        return false;
+    public boolean eliminarUsuario(String email) {
+        try{
+            if(email != "") {
+                UserModel userModel = userRepository.findByEmail(email.toUpperCase());
+                userRepository.delete(userModel);
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception ex){
+            return false;
+        }
     }
 
     @Override
@@ -63,7 +73,22 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-    public boolean editarUsuario(String user, UserModel userModel) {
+    public boolean editarUsuario(String email, UserModel newUserModel) {
+        try{
+            if(email != "" && newUserModel !=null){
+                UserModel userModel = userRepository.findByEmail(email);
+                userModel.setName(newUserModel.getName().toUpperCase());
+                userModel.setEmail(newUserModel.getEmail().toUpperCase());
+                // Codificar la contraseña antes de guardarla
+                String passwordCodificada = codificarPsw(newUserModel.getPassword());
+                userModel.setPassword(passwordCodificada);
+                userRepository.save(userModel);
+
+                return true;
+            }
+        }catch(Exception ex){
+            return false;
+        }
         return false;
     }
 

@@ -12,9 +12,9 @@ public interface IUserService {
 
     boolean agregarUsuario(UserModel userModel);
 
-    boolean eliminarUsuario(String user);
+    boolean eliminarUsuario(String email);
 
     List<UserModel> listaUsuarios();
 
-    boolean editarUsuario(String user ,UserModel userModel);
+    boolean editarUsuario(String email ,UserModel userModel);
 }

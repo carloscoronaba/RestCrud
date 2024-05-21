@@ -51,4 +51,25 @@ public class UserModelController {
             return ResponseEntity.internalServerError().body(null);
         }
     }
+
+    @DeleteMapping("/eliminar")
+    public ResponseEntity<String> eliminarUserModel(@RequestParam String email) {
+        boolean eliminado = iUserService.eliminarUsuario(email);
+        if (eliminado) {
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario eliminado con éxito");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al eliminar usuario");
+        }
+    }
+
+    @PutMapping("/modificar")
+    public ResponseEntity<String> modificarUserModel(@RequestParam String email, @RequestBody UserModel userModel){
+        boolean editado = iUserService.editarUsuario(email, userModel);
+        if(editado){
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario modificada con exito");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error al editar usuario");
+        }
+    }
+
 }
