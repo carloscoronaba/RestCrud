@@ -33,12 +33,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> auth(@RequestBody AuthRequestDto authRequestDto){
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String hashedPassword = encoder.encode(authRequestDto.getPassword());
+        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        //String hashedPassword = encoder.encode(authRequestDto.getPassword());
         try {
             //1. Gestion authenticationManager
             this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    authRequestDto.getUser(), hashedPassword
+                    authRequestDto.getUser(), authRequestDto.getPassword()
             ));
 
             //2. Validar el usuario en la bd
