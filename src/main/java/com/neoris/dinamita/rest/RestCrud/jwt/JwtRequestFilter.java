@@ -1,6 +1,5 @@
-package com.neoris.dinamita.rest.RestCrud;
+package com.neoris.dinamita.rest.RestCrud.jwt;
 
-import com.neoris.dinamita.rest.RestCrud.util.JwtUtilService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

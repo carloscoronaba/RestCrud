@@ -1,4 +1,4 @@
-package com.neoris.dinamita.rest.RestCrud.util;
+package com.neoris.dinamita.rest.RestCrud.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
