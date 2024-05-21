@@ -25,7 +25,7 @@ public class UserServiceImp implements IUserService {
     public boolean agregarUsuario(UserModel userModel) {
         try {
 
-            UserModel usuarioExistente = userRepository.findByEmail(userModel.getEmail());
+            UserModel usuarioExistente = userRepository.findUserModelByEmail(userModel.getEmail().toUpperCase());
             System.out.println(usuarioExistente);
 
             if(usuarioExistente!=null){
@@ -51,7 +51,7 @@ public class UserServiceImp implements IUserService {
     public boolean eliminarUsuario(String email) {
         try{
             if(email != "") {
-                UserModel userModel = userRepository.findByEmail(email.toUpperCase());
+                UserModel userModel = userRepository.findUserModelByEmail(email.toUpperCase());
                 userRepository.delete(userModel);
                 return true;
             }else{
@@ -76,7 +76,8 @@ public class UserServiceImp implements IUserService {
     public boolean editarUsuario(String email, UserModel newUserModel) {
         try{
             if(email != "" && newUserModel !=null){
-                UserModel userModel = userRepository.findByEmail(email);
+                UserModel userModel = userRepository.findUserModelByEmail(email.toUpperCase());
+
                 userModel.setName(newUserModel.getName().toUpperCase());
                 userModel.setEmail(newUserModel.getEmail().toUpperCase());
                 // Codificar la contraseña antes de guardarla
