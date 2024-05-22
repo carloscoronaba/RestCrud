@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -164,7 +165,7 @@ public class PersonaController {
     }
 
     @GetMapping("/pdf")
-    public ResponseEntity<byte[]> exportarPdfPersonas() throws JRException, FileNotFoundException {
+    public ResponseEntity<byte[]> exportarPdfPersonas() throws JRException, FileNotFoundException, SQLException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("personasReporte", "ReportePersonas.pdf");
