@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface IPersonaService {
@@ -22,5 +23,5 @@ public interface IPersonaService {
 
     List<Persona> listarPersonas();
 
-    public byte[] exportarPdf() throws JRException, FileNotFoundException;
+    public byte[] exportarPdf() throws JRException, FileNotFoundException, SQLException;
 }

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -124,7 +125,7 @@ public class PersonaServiceImp implements IPersonaService {
     }
 
     @Override
-    public byte[] exportarPdf() throws JRException, FileNotFoundException {
-        return reportePdf.exportPdf(personaRepositorio.findAll());
+    public byte[] exportarPdf() throws JRException, FileNotFoundException, SQLException {
+        return reportePdf.exportPdf();
     }
 }
