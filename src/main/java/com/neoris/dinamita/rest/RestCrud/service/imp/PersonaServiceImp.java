@@ -46,9 +46,9 @@ public class PersonaServiceImp implements IPersonaService {
                 persona.setApellido(persona.getApellido().toUpperCase());
                 persona.setEmail(persona.getEmail().toUpperCase());
                 // Codificar la contraseña antes de guardarla
-                String passwordCodificada = codificarPsw(persona.getPassword());
-                persona.setPassword(passwordCodificada);
-                persona.setRol(persona.getRol());
+                //String passwordCodificada = codificarPsw(persona.getPassword());
+                //persona.setPassword(passwordCodificada);
+                //persona.setRol(persona.getRol());
                 personaRepositorio.save(persona);
                 return true;
             }
@@ -87,8 +87,8 @@ public class PersonaServiceImp implements IPersonaService {
                 personaEditar.setApellido(personaNueva.getApellido().toUpperCase());
                 personaEditar.setEdad(personaNueva.getEdad());
                 personaEditar.setEmail(personaNueva.getEmail().toUpperCase());
-                String passwordCodificada = codificarPsw(personaNueva.getPassword());
-                personaEditar.setPassword(passwordCodificada);
+                //String passwordCodificada = codificarPsw(personaNueva.getPassword());
+                //personaEditar.setPassword(passwordCodificada);
 
                 personaRepositorio.save(personaEditar);
                 return true;

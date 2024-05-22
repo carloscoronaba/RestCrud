@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager; //Autentica las credenciales de usuario
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService; //Carga los detalles del usuario desde la base de datos
 
     @Autowired
-    private JwtUtilService jwtUtilService;
+    private JwtUtilService jwtUtilService; //Genera el token JWT
 
     @PostMapping("/login")
     public ResponseEntity<?> auth(@RequestBody AuthRequestDto authRequestDto){

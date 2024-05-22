@@ -22,16 +22,17 @@ public class SecurityConfig {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    //Se configuran opciones de seguridad utilizando el objeto http
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception{
         http
-                .cors(withDefaults())
-                .csrf(crf -> crf.disable())
+                .cors(withDefaults()) //Habilita la configuracion de CORS
+                .csrf(crf -> crf.disable()) //Deshabilitmos la protección CSRF ya que utiliza tokens en vez de cookies de sesion
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/auth/**").permitAll() //Se permite acceso sin autenticacion
+                        .anyRequest().authenticated() //Cualquier otra peticion necesita autenticacion
                 )
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class) //Se ejecuta el filtro de JWT
                 .sessionManagement((session) -> session //Indica que la autenticacion sera con token
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
@@ -39,11 +40,13 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //Codificador de contraseñas
     @Bean
     PasswordEncoder passwordEncoder () {
         return  new BCryptPasswordEncoder();
     }
 
+    //Autentica las solicitudes de los clientes
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return  authenticationConfiguration.getAuthenticationManager();

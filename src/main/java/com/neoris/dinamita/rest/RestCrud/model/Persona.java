@@ -25,9 +25,9 @@ public class Persona {
     private String password;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rol_id", referencedColumnName = "id")
-    private Rol rol;
+    //@ManyToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "rol_id", referencedColumnName = "id")
+    //private Rol rol;
 
     //@JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

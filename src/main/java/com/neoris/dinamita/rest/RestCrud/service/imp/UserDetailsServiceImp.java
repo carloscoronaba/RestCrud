@@ -17,6 +17,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Autowired
     IUserRepository userRepository;
 
+    //Carga los detalles del usuario a traves del username
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Consulta a la base de datos
