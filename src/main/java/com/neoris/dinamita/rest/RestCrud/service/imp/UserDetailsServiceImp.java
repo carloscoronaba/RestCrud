@@ -21,9 +21,9 @@ public class UserDetailsServiceImp implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Consulta a la base de datos
-        UserModel userModel = this.userRepository.findByName(username);
+        UserModel userModel = this.userRepository.findByName(username.toUpperCase());
         if (username == null){
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException(username.toUpperCase());
         }
         return new User(userModel.getName(), userModel.getPassword(), new ArrayList<>());
 

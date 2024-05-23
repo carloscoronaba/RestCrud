@@ -9,18 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class UserModel {
+public class UserModel extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer user_id;
+    Integer user_id; // Identificador único del usuario
 
-    String name;
+    String name; // Nombre del usuario
 
-    String password;
+    String password; // Contraseña del usuario
 
     @Column(name = "EMAIL", unique = true)
-    String email;
-
-
+    String email; // Correo electrónico del usuario
 }

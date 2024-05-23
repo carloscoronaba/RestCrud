@@ -25,10 +25,10 @@ public class UserServiceImp implements IUserService {
     public boolean agregarUsuario(UserModel userModel) {
         try {
 
-            UserModel usuarioExistente = userRepository.findUserModelByEmail(userModel.getEmail().toUpperCase());
-            System.out.println(usuarioExistente);
+            UserModel usuarioExistenteEmail = userRepository.findUserModelByEmail(userModel.getEmail().toUpperCase());
+            UserModel usuarioExistenteUserName = userRepository.findByName(userModel.getName().toUpperCase());
 
-            if(usuarioExistente!=null){
+            if(usuarioExistenteEmail!=null || usuarioExistenteUserName!=null){
                 System.out.println("Usuario existente");
                 return false;
             }else{

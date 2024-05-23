@@ -39,7 +39,7 @@ public class UserModelController {
             if (iUserService.agregarUsuario(userModel)) {
                 return ResponseEntity.status(HttpStatus.CREATED).body("Usuario Ingresado con exito: " + userModel);
             } else {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Correo electronico ya existe: " + userModel.getEmail());
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Correo electronico o UserName ya existe: " + userModel.getEmail());
             }
         } catch (Exception ex) {
             ex.printStackTrace();
