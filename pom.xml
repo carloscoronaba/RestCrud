@@ -89,12 +89,15 @@
 			<artifactId>openpdf</artifactId>
 			<version>2.0.2</version>
 		</dependency>
+
+		<!-- Dependencia de JasperReport -->
 		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>6.21.3</version>
 		</dependency>
+		<!-- Dependencia evitar el error de compilacion -->
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>

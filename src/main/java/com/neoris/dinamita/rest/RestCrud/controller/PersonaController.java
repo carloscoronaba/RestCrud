@@ -164,6 +164,7 @@ public class PersonaController {
         }
     }
 
+    //End Point para exportar el PDF
     @GetMapping("/pdf")
     public ResponseEntity<byte[]> exportarPdfPersonas() throws JRException, FileNotFoundException, SQLException {
         HttpHeaders headers = new HttpHeaders();

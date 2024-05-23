@@ -124,6 +124,7 @@ public class PersonaServiceImp implements IPersonaService {
         }
     }
 
+    //Genera y exporta el reporte PDF
     @Override
     public byte[] exportarPdf() throws JRException, FileNotFoundException, SQLException {
         return reportePdf.exportPdf();
