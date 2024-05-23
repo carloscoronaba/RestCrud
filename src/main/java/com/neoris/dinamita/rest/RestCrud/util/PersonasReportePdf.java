@@ -16,7 +16,7 @@ import java.util.Map;
 public class PersonasReportePdf {
 
     @Autowired
-    private DataSource dataSource; // Suponiendo que tienes un DataSource configurado en tu aplicación
+    private DataSource dataSource;
 
     public byte[] exportPdf() throws JRException, SQLException, FileNotFoundException {
         return JasperExportManager.exportReportToPdf(getReport());

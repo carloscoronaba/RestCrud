@@ -3,6 +3,7 @@ package com.neoris.dinamita.rest.RestCrud.controller;
 import com.neoris.dinamita.rest.RestCrud.dao.AuthRequestDto;
 import com.neoris.dinamita.rest.RestCrud.dao.AuthResponseDto;
 import com.neoris.dinamita.rest.RestCrud.jwt.JwtUtilService;
+import io.micrometer.core.instrument.Counter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
 
     @Autowired
+    Counter customRequestCounter;
+
+    @Autowired
     private AuthenticationManager authenticationManager; //Autentica las credenciales de usuario
 
     @Autowired
@@ -30,6 +34,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> auth(@RequestBody AuthRequestDto authRequestDto){
+
+        // Incrementa el contador de solicitudes personalizadas
+        customRequestCounter.increment();
 
         //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         //String hashedPassword = encoder.encode(authRequestDto.getPassword());
