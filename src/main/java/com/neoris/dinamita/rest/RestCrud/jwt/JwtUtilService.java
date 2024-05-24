@@ -16,7 +16,7 @@ public class JwtUtilService {
     //Clave secreta utilizada para firmar y verificar el token
     private static final String JWT_SECRET_KEY = "TExBVkVfTVVZX1NFQ1JFVEzE3Zmxu7BSGSJx72BSBXM";
     //Duracion temporal del token en 15 minutos
-    private static final long JWT_TIME_VALIDITY = 1000 * 60  * 15;
+    private static final long JWT_TIME_VALIDITY = 1000 * 60  * 30;
 
 
     public String generateToken(UserDetails userDetails) {
