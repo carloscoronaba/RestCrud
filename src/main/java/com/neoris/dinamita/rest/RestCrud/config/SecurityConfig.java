@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .csrf(crf -> crf.disable()) //Deshabilitmos la protección CSRF ya que utiliza tokens en vez de cookies de sesion
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/api/auth/**").permitAll() //Se permite acceso sin autenticacion
+                        .requestMatchers("/crud/**").permitAll()
                         .anyRequest().authenticated() //Cualquier otra peticion necesita autenticacion
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class) //Se ejecuta el filtro de JWT

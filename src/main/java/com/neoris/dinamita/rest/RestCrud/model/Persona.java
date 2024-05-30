@@ -1,6 +1,5 @@
 package com.neoris.dinamita.rest.RestCrud.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +11,16 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name= "personas")
+@NamedStoredProcedureQuery(
+        name = "Persona.insertarPersona",
+        procedureName = "InsertarPersona",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "nombre", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "apellido", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "edad", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "email", type = String.class)
+        }
+)
 public class Persona {
 
     @Id
@@ -22,12 +31,6 @@ public class Persona {
     private String apellido;
     private int edad;
     private String email;
-    private String password;
-
-
-    //@ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "rol_id", referencedColumnName = "id")
-    //private Rol rol;
 
     //@JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -37,6 +40,5 @@ public class Persona {
             inverseJoinColumns = @JoinColumn(name = "videojuego_id", referencedColumnName = "ID_JUEGO")
     )
     private List<VideoJuego> videojuegos = new ArrayList<>();
-
 
 }

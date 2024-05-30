@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,5 +21,9 @@ public interface PersonaRepository extends JpaRepository<Persona, String> {
     public Persona findPersonaByEmail(@Param("email") String email);
 
     Page<Persona> findAll(Pageable pageable);
+
+    @Procedure(name = "Persona.insertarPersona")
+    void insertarPersona(String nombre, String apellido, int edad, String email);
+
 
 }

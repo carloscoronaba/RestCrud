@@ -66,8 +66,8 @@ public class PersonaController {
             System.out.println("No se ha podido insertar la Persona: " + ex.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-
     }
+
 
     @Operation(summary = "Get para obtener lista de personas")
     @ApiResponses(value = {
