@@ -1,5 +1,5 @@
-INSERT INTO user_model (name, password, email) 
-VALUES ('PRUEBA5', '$2y$10$6mfP4jYg/AuoiSY7uBn4neejt4QFFV241xfleJpT5.sYAVDMcoHga', 'prueba5@NEORIS.COM');
+INSERT INTO user_model (name, password, email)
+VALUES ('PRUEBA1', '$2y$10$6mfP4jYg/AuoiSY7uBn4neejt4QFFV241xfleJpT5.sYAVDMcoHga', 'prueba1@NEORIS.COM');
 
 SELECT * FROM user_model;
 

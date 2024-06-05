@@ -19,6 +19,8 @@ services:
       - "1521:1521"
     environment:
       - ORACLE_PWD=12345
+    volumes:
+      - oracle-data:/opt/oracle/oradata
 
 volumes:
   oracle-data:
