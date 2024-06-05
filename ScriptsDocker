@@ -1,3 +1,5 @@
+DOCKERFILE
+
 Limpiar Target
 mvn clean
 
@@ -14,9 +16,51 @@ Docker
 
 Creacion de red para convivencia de contenedores
 docker network create red-pruebas
+docker network ls
+docker network inspect red-pruebas
 
 Creacion de contenedor para la app del semillero
 docker run -d --name semillero-app --network red-pruebas -p 8080:8080 semillero-app:1
 
 Creacion de contenedor para la db oracle
+docker run -d --name "oracle-db" --network red-pruebas -p 1521:1521 -e ORACLE_PWD="12345" container-registry.oracle.com/database/free
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DOCKER-COMPOSE
+
+========
+subir imagen a docker hub
+mvn clean
+mvn package
+
+levantar con configuracion de docker compose up
+docker compose up
+
+
+===========
+Matar procesos
+docker compose down
+
+levanatar procesos
+docker compose up -d
+
+================
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+construir imagen para subir a docker hub
+docker build -t carloscoronaba/semillero-app .
+
+iniciamos sesion
+docker login
+
+le damos un push a nuestra imagen a nuestro repositorio
+docker push carloscoronaba/semillero-app
+
+creamos nuestro contenedor apartir de la imagen de docker que subimos a nuestro repo
+docker run -p 8080:8080 --name semillero -e DATABASE_URL=jdbc:oracle:thin:@oracledb:1521/free -e DATABASE_USERNAME=system -e DATABASE_PASSWORD=12345 -d --network=red-pruebas carloscoronaba/semillero-app
+
+la bd es igual que la del inicio
 docker run -d --name "oracle-db" --network red-pruebas -p 1521:1521 -e ORACLE_PWD="12345" container-registry.oracle.com/database/free
