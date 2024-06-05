@@ -1,0 +1,22 @@
+Limpiar Target
+mvn clean
+
+Creacion del jar
+mvn clean package
+
+Cracion de imagen Docker
+docker build -t semillero-app:1 .
+
+
+=====================
+
+Docker
+
+Creacion de red para convivencia de contenedores
+docker network create red-pruebas
+
+Creacion de contenedor para la app del semillero
+docker run -d --name semillero-app --network red-pruebas -p 8080:8080 semillero-app:1
+
+Creacion de contenedor para la db oracle
+docker run -d --name "oracle-db" --network red-pruebas -p 1521:1521 -e ORACLE_PWD="12345" container-registry.oracle.com/database/free
